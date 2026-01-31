@@ -62,7 +62,7 @@ export class ProductsListPageComponent implements OnInit {
     this.errorMsg = '';
 
     this.api.remove(p.id).subscribe({
-      next: () => this.load(), 
+      next: () => this.load(),
       error: (e) => {
         console.error('DELETE ERROR', e);
         this.errorMsg = 'No se pudo eliminar el producto.';
@@ -73,7 +73,7 @@ export class ProductsListPageComponent implements OnInit {
 
 
 
-  
+
   onCreate() {
     this.router.navigate(['/products', 'new']);
   }
@@ -99,7 +99,7 @@ export class ProductsListPageComponent implements OnInit {
 
   // 
   private applyFilterAndPagination(): void {
-  
+
     if (!this.searchTerm) {
       this.filteredAll = [...this.allProducts];
     } else {
@@ -113,7 +113,7 @@ export class ProductsListPageComponent implements OnInit {
       });
     }
 
-   
+
     this.visibleProducts = this.filteredAll.slice(0, this.pageSize);
   }
 
@@ -141,4 +141,35 @@ export class ProductsListPageComponent implements OnInit {
     if (!m) return value;
     return `${m[3]}/${m[2]}/${m[1]}`;
   }
+  // Modal confirmación
+  confirmOpen = false;
+  toDelete: Product | null = null;
+
+  askRemove(p: Product): void {
+    this.toDelete = p;
+    this.confirmOpen = true;
+  }
+
+  cancelRemove(): void {
+    this.confirmOpen = false;
+    this.toDelete = null;
+  }
+
+  confirmRemove(): void {
+    if (!this.toDelete) return;
+
+    const id = this.toDelete.id;
+    this.confirmOpen = false;
+    this.toDelete = null;
+
+    this.errorMsg = '';
+    this.api.remove(id).subscribe({
+      next: () => this.load(),
+      error: (e) => {
+        console.error('DELETE ERROR', e);
+        this.errorMsg = 'No se pudo eliminar el producto.';
+      }
+    });
+  }
+
 }

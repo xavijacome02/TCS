@@ -65,16 +65,36 @@
           <td class="col-logo">
             <img class="logo" [src]="p.logo" alt="logo" (error)="onImgError($event)" />
           </td>
+
           <td>{{ p.name }}</td>
           <td class="col-desc">{{ p.description }}</td>
           <td>{{ formatDate(p.date_release) }}</td>
           <td>{{ formatDate(p.date_revision) }}</td>
+
           <td class="col-actions">
             <button class="btn btn-light" (click)="onEdit(p)">Editar</button>
-           <button class="btn btn-danger" (click)="remove(p)">Eliminar</button>
+            <button class="btn btn-danger" (click)="askRemove(p)">Eliminar</button>
           </td>
         </tr>
       </tbody>
+
     </table>
+    <!-- Modal flotante -->
+    <div class="backdrop" *ngIf="confirmOpen">
+      <div class="modal">
+        <h3>Confirmar eliminación</h3>
+
+        <p>
+          ¿Seguro que deseas eliminar
+          <b>{{ toDelete?.name }}</b>?
+        </p>
+
+        <div class="actions">
+          <button class="btn btn-light" (click)="cancelRemove()">Cancelar</button>
+          <button class="btn btn-danger" (click)="confirmRemove()">Sí, eliminar</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
