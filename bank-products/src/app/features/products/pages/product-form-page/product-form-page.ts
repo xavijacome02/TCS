@@ -109,7 +109,7 @@ export class ProductFormPageComponent implements OnInit {
     });
   }
 
-
+////////////////////////////////////////////////////////
   private initWithId(id: string) {
     this.idParam.set(id);
     this.isEdit.set(true);
@@ -126,7 +126,7 @@ export class ProductFormPageComponent implements OnInit {
     this.form.controls.date_release.setValue(t);
     this.form.controls.date_revision.setValue(addOneYear(t));
   }
-
+///////////////////////////////////////////////////////////////////7
   private loadById(id: string): void {
     this.loading.set(true);
     this.errorMsg.set('');
@@ -196,7 +196,8 @@ export class ProductFormPageComponent implements OnInit {
     req$.subscribe({
       next: () => {
         this.saving.set(false);
-        this.router.navigate(['/products'],{queryParams:{refresh:1}});
+        this.router.navigate(['/products'], { replaceUrl: true });
+
       },
       error: (e) => {
         console.error('SAVE ERROR', e);

@@ -22,11 +22,11 @@ export class ProductsListPageComponent implements OnInit {
   filteredAll: Product[] = [];
   visibleProducts: Product[] = [];
 
-  // Filters/pagination
+
   private searchTerm = '';
   private pageSize = 5;
 
-  constructor(private api: ProductsApiService, private router: Router) {
+  /*constructor(private api: ProductsApiService, private router: Router) {
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((e) => {
@@ -35,7 +35,14 @@ export class ProductsListPageComponent implements OnInit {
           this.load();
         }
       });
-  }
+  }*/
+  constructor(
+    private api: ProductsApiService,
+    private router: Router
+  ) { }
+
+
+
   ngOnInit(): void {
     this.load();
   }
@@ -69,22 +76,13 @@ export class ProductsListPageComponent implements OnInit {
       }
     });
   }
-
-
-
-
-
   onCreate() {
     this.router.navigate(['/products', 'new']);
   }
 
-
   onEdit(p: Product) {
     this.router.navigate(['/products', p.id, 'edit']);
   }
-
-
-
 
   onSearch(value: string): void {
     this.searchTerm = (value ?? '').trim().toLowerCase();

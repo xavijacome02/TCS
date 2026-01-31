@@ -3,7 +3,11 @@ import { ProductsListPageComponent } from './pages/products-list-page/products-l
 import { ProductFormPageComponent } from './pages/product-form-page/product-form-page';
 
 export const productsRoutes: Routes = [
-  { path: '', component: ProductsListPageComponent },
+  {
+    path: '',
+    component: ProductsListPageComponent,
+    runGuardsAndResolvers: 'always'
+  },
   { path: 'new', component: ProductFormPageComponent },
   { path: ':id/edit', component: ProductFormPageComponent }
 ];
