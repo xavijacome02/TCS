@@ -1,0 +1,65 @@
+<div class="page">
+  <div class="topbar">
+    <div>
+      <h2>{{ isEdit() ? 'Editar producto' : 'Nuevo producto' }}</h2>
+      <p class="subtitle">Completa los datos requeridos.</p>
+    </div>
+    <button class="btn btn-light" (click)="onCancel()">Volver</button>
+  </div>
+
+  <div *ngIf="loading()" class="card">Cargando...</div>
+
+  <div *ngIf="!loading() && errorMsg()" class="card error">
+    {{ errorMsg() }}
+  </div>
+
+  <form *ngIf="!loading()" class="card form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+      <div class="field">
+        <label>ID</label>
+        <input class="input" formControlName="id" placeholder="Ej: P001" />
+        <small *ngIf="form.controls.id.touched && form.controls.id.invalid">ID requerido (3–10).</small>
+      </div>
+
+      <div class="field">
+        <label>Nombre</label>
+        <input class="input" formControlName="name" />
+        <small *ngIf="form.controls.name.touched && form.controls.name.invalid">Nombre requerido (5–100).</small>
+      </div>
+
+      <div class="field full">
+        <label>Descripción</label>
+        <textarea class="input" rows="3" formControlName="description"></textarea>
+        <small *ngIf="form.controls.description.touched && form.controls.description.invalid">
+          Descripción requerida (10–200).
+        </small>
+      </div>
+
+      <div class="field full">
+        <label>Logo (URL)</label>
+        <input class="input" formControlName="logo" placeholder="https://..." />
+        <small *ngIf="form.controls.logo.touched && form.controls.logo.invalid">Logo requerido.</small>
+      </div>
+
+      <div class="field">
+        <label>Fecha de liberación</label>
+        <input class="input" type="date" formControlName="date_release" />
+      </div>
+
+      <div class="field">
+        <label>Fecha de revisión (auto)</label>
+        <input class="input" type="date" formControlName="date_revision" />
+
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-light" (click)="onReset()">Reset</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!canSubmit">
+        {{ isEdit() ? 'Guardar cambios' : 'Crear' }}
+      </button>
+
+
+    </div>
+  </form>
+</div>

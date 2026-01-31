@@ -1,0 +1,80 @@
+<div class="page">
+  <div class="topbar">
+    <div class="title">
+      <h2>Productos</h2>
+      <p class="subtitle">Administra el catálogo de productos del banco.</p>
+    </div>
+
+    <button class="btn btn-primary" (click)="onCreate()">Agregar</button>
+  </div>
+
+  <div class="toolbar">
+    <div class="field">
+      <label>Buscar</label>
+      <input #search class="input" type="text" placeholder="ID, nombre o descripción"
+        (input)="onSearch(search.value)" />
+    </div>
+
+    <div class="field small">
+      <label>Mostrar</label>
+      <select #size class="select" (change)="onPageSizeChange(size.value)">
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+
+    <div class="meta">
+      <span><b>{{ visibleProducts.length }}</b> / {{ filteredAll.length }} resultados</span>
+    </div>
+  </div>
+
+  <!-- Loadin -->
+  <div *ngIf="loading" class="card">
+    <div class="skeleton-row" *ngFor="let _ of [1,2,3,4,5]"></div>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="!loading && errorMsg" class="card error">
+    {{ errorMsg }}
+    <button class="btn btn-light" (click)="load()">Reintentar</button>
+  </div>
+
+  <!-- Empty -->
+  <div *ngIf="!loading && !errorMsg && filteredAll.length === 0" class="card">
+    No hay resultados con ese filtro.
+  </div>
+
+  <!-- Tabla -->
+  <div *ngIf="!loading && !errorMsg && filteredAll.length > 0" class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-logo">Logo</th>
+
+          <th>Nombre</th>
+          <th class="col-desc">Descripción</th>
+          <th>Release</th>
+          <th>Revision</th>
+          <th class="col-actions">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let p of visibleProducts; trackBy: trackById">
+          <td class="col-logo">
+            <img class="logo" [src]="p.logo" alt="logo" (error)="onImgError($event)" />
+          </td>
+          <td>{{ p.name }}</td>
+          <td class="col-desc">{{ p.description }}</td>
+          <td>{{ formatDate(p.date_release) }}</td>
+          <td>{{ formatDate(p.date_revision) }}</td>
+          <td class="col-actions">
+            <button class="btn btn-light" (click)="onEdit(p)">Editar</button>
+           <button class="btn btn-danger" (click)="remove(p)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

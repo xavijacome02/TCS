@@ -1,0 +1,22 @@
+.page { padding: 18px; max-width: 900px; margin: 0 auto; }
+.topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.subtitle { margin: 4px 0 0; opacity: .75; font-size: 13px; }
+
+.card { background: #fff; border: 1px solid #eee; border-radius: 14px; padding: 14px; box-shadow: 0 1px 8px rgba(0,0,0,.04); }
+.card.error { border-color: #f3b4b4; background: #fff7f7; }
+
+.form { margin-top: 14px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 12px; opacity: .75; }
+.field small { color: #8a1111; }
+
+.input { padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; width: 100%; }
+
+.actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+
+.btn { padding: 9px 12px; border-radius: 12px; border: 1px solid transparent; cursor: pointer; font-weight: 600; }
+.btn-primary { background: #111; color: #fff; }
+.btn-light { background: #f3f4f6; color: #111; border-color: #e5e7eb; }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
